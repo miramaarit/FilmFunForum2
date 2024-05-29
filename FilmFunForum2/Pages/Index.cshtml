@@ -1,0 +1,302 @@
+﻿@page
+
+@using Microsoft.AspNetCore.Identity
+@using FilmFunForum2.Areas.Identity.Data
+
+
+@inject SignInManager<FilmFunForum2User> SignInManager
+@inject UserManager<FilmFunForum2User> UserManager
+
+@model IndexModel
+@{
+	ViewData["Title"] = "Home page";
+}
+
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark py-3">
+	<div class="container">
+		<a href="#" class="navbar-brand"></a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navmenu">
+			<ul class="nav justify-content-center">
+				@if (Model.Categories != null)
+				{
+					@foreach (var category in Model.Categories)
+					{
+						<li class="nav-item">
+							<a href="#@category.Name" class="nav-link">@category.Name</a>
+						</li>
+					}
+				}
+			</ul>
+
+
+		</div>
+	</div>
+
+</nav>
+<div class="container mt-3">
+	<div class="bg-secondary p-3">
+		<div class="text-center">
+
+		@* 	<h1 class="text-white ">Filmfun</h1>
+			<p>Ett forum för dig som gillar att se på film och serie.</p>
+			<p>Ge lite tips, ris eller ros</p> *@
+			<br />
+			@if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin")) //Admin får meddelande att det finns flaggade inlägg
+			{
+				@if (Model.HasFlaggedComments)
+				{
+					<div class="alert alert-danger">OBS! Det finns flaggad kommentar</div>
+					
+				}
+			}
+			<div class="d-flex justify-content-end">
+				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+					Skriv inlägg
+				</button>
+			</div>
+			@if (SignInManager.IsSignedIn(User)) //Skriv inlägg
+			{
+
+				<div class="modal" id="myModal">
+					<div class="modal-dialog modal-dialog-scrollable">
+						<div class="modal-content">
+
+							<p>Du är inloggad som @User.Identity.Name</p>
+							<form method="post" enctype="multipart/form-data">
+								<label asp-for="Post.CategoryId" class="form-label">Kategori</label>
+								@if (Model.Categories != null)
+								{
+									<select asp-for="Post.CategoryId" class="form-select">
+										<option value="">Välj kategori</option>
+
+										@foreach (var category in Model.Categories)
+										{
+											<option value="@category.Id">@category.Name</option>
+										}
+									</select>
+								}
+								<br />
+								<label asp-for="Post.Title" class="form-label">Titel</label>
+								<input asp-for="Post.Title" />
+								<br /><br />
+								<label asp-for="Post.Text"></label>
+								<textarea asp-for="Post.Text" cols="50" rows="8"></textarea>
+								<br />
+
+								<label asp-for="Post.Image" class="form-label">Bild</label>
+								<input type="file" name="UploadedImage" />
+								<br />
+								<br />
+
+								<input type="submit" class="btn btn-success" value="Spara inlägg" />
+								<br />
+							</form>
+
+						</div>
+					</div>
+				</div>
+			}
+			else
+			{
+				<div class="alert alert-danger">Du är inte inloggad!</div>
+			}
+
+
+
+
+		
+				<div class="row">
+
+					@if (Model.Post != null) //Se ett inägg
+					{
+
+						<h5>@Model.Post.Title</h5>
+						<p>@Model.Post.Text</p>
+						@if (!string.IsNullOrEmpty(Model.Post.Image))
+						{
+							<img src="~/postImages/@Model.Post.Image" alt="@Model.Post.Title" class="img-fluid" width=150 height="100" />
+						}
+						
+
+							<small>Postat den @Model.Post.Date av @Model.Post.UserId   </small>
+						
+						<hr />
+						
+						@if (Model.Post.Comments != null && Model.Post.Comments.Any()) //Se kommentarer
+						{
+
+							@foreach (var comment in Model.Post.Comments)
+							{
+								<div class="comment">
+									<h5>Kommentar:</h5>
+									<p>@comment.Text</p>
+									@if (!string.IsNullOrEmpty(comment.Image))
+									{
+										<img src="~/postImages/@comment.Image" class="img-fluid" width=150 height="100" />
+									}
+
+									<small>Postad av @comment.UserId den @comment.Date<img src="~/images/@comment.UserImage" alt="User Image" class="rounded-circle" style="width:30px; height:30px; object-fit:cover; margin-right:10px;" /></small>
+								</div>
+
+								<hr />
+							}
+
+						}
+						else
+						{
+							<p>Inga kommentarer ännu.</p>
+						}
+
+						<div class="d-flex justify-content-end">
+							<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#commentModal">
+								Skriv kommentar eller rapportera
+							</button>
+
+						</div>
+
+					}
+
+					
+								
+					@if (Model.Categories != null)
+
+					{
+
+						foreach (var category in Model.Categories) //Se de olika kategorierna i container med inlägg
+						{
+							<div class="container p-5 my-4 post-container" id="@category.Name"> 
+								<h2>@category.Name</h2>
+								<div class="row scrollable-container">
+									@if (Model.Posts != null && Model.Posts.Any())
+									{
+										var posts = Model.Posts.Where(p => p.CategoryId == category.Id)
+										.OrderByDescending(p => p.Date)
+										;
+										@foreach (var post in posts)
+										{
+											<div class="col-12 mb-3">
+												<div class="post">
+													<a asp-page-handler="ShowPost" asp-route-showid="@post.Id">
+														<h5>@post.Title</h5>
+													</a>
+													<p>@post.Text</p>
+													@if (!string.IsNullOrEmpty(post.Image))
+													{
+														<img src="~/postImages/@post.Image" alt="@post.Title" class="img-fluid" width="150" height="100" />
+													}
+													<div class="text-muted">
+														<small>
+															Postat den @post.Date av @post.UserId
+															<img src="~/images/@post.UserImage" alt="User Image" class="rounded-circle" style="width:30px; height:30px; object-fit:cover; margin-right:10px;" />
+														</small>
+													</div>
+													@if (post.Comments != null)
+													{
+														<p>Antal kommentarsinlägg: @(post.Comments.Count)</p> //Visar hur många kommentarer inlägget har
+													}
+													else
+													{
+														<p>Antal kommentarsinlägg: 0</p>
+													}
+													
+													@if (post.Comments != null && User.IsInRole("Admin") && post.Comments.Any(c => c.Flagged)) //Visar admininloggad om inlägget har flaggade kommenatrer
+													{
+														<div style="color: red;">Det finns flaggad kommentar</div>
+													}
+
+
+
+												</div>
+											</div>
+
+
+
+										}
+									}
+									else
+									{
+										<p>Inga inlägg hittades i kategori @category.Name.</p>
+									}
+								</div>
+							</div>
+						}
+					}
+
+					
+				</div>
+					
+		
+
+		</div>
+		@if (SignInManager.IsSignedIn(User)) //Skriva kommentar
+		{
+			<div class="modal" id="commentModal">
+				<div class="modal-dialog modal-dialog-scrollable">
+					<div class="modal-content">
+						<p>Du är inloggad som @User.Identity.Name</p>
+
+						<form method="post" asp-page-handler="AddComment" enctype="multipart/form-data">
+							<input type="hidden" asp-for="Comment.ForumPostId" value="@(Model.Post?.Id ?? 0)" />
+							<input type="hidden" asp-for="Comment.UserId" value="@User.Identity.Name" />
+							<input type="hidden" asp-for="Comment.ForumPostTitle" value="@Model.Post?.Title" />
+							@*     <input type="hidden" asp-for="Comment.Flagged" value="@Model.Post?.Title" /> *@
+							@*  <input type="hidden" asp-for="Comment.Text" value="Comment.Text" /> *@
+							<div class="mb-3">
+								<label asp-for="Comment.Text" class="form-label">Kommentar</label>
+								<textarea asp-for="Comment.Text" class="form-control" rows="3"></textarea>
+
+								<label asp-for="Comment.Image" class="form-label">Bild</label>
+								<input type="file" name="UploadedImage" />
+								<div class="form-group form-check">
+									<label class="form-check-label">
+										<input class="form-check-input" asp-for="Comment.Flagged" /> Anmäl inlägg
+									</label>
+								</div>
+							</div>
+							<button type="submit" class="btn btn-primary">Spara kommentar</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		}
+		else
+		{
+			<div class="alert alert-danger">Du är inte inloggad!</div>
+		}
+		@if (Model.Post != null)
+		{
+			@if (User.IsInRole("Admin"))
+			{
+				foreach (var comment in Model.Post.Comments.Where(c => c.Flagged))
+				{
+					<div>
+						<p>@comment.Text</p>
+
+
+						<form method="post" asp-page-handler="DeleteComment" asp-route-commentId="@comment.Id" asp-route-postId="@Model.Post.Id">
+							<button type="submit" class="btn btn-danger">Radera kommentar</button>
+						</form>
+						
+					</div>
+				}
+				<br />
+				<form method="post" asp-page-handler="DeletePost" asp-route-postId="@Model.Post.Id">
+					<button type="submit" class="btn btn-danger">Radera hela inlägget</button>
+				</form>
+			}
+
+		}
+
+
+
+
+
+
+
+	</div>
+</div>
+</div>
