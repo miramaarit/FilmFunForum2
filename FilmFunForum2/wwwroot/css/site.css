@@ -16,6 +16,26 @@ html {
   position: relative;
   min-height: 100%;
 }
+.festive-background {
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.festive-heading {
+    font-family: 'Pacifico', cursive;
+    font-size: 3rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.festive-text {
+    color: #ffffff;
+    font-family: 'Lato', sans-serif;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+
 
 body {
   margin-bottom: 60px;
