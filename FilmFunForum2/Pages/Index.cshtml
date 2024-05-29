@@ -37,13 +37,16 @@
 	</div>
 
 </nav>
+
 <div class="container mt-3">
 	<div class="bg-secondary p-3">
 		<div class="text-center">
-
-		@* 	<h1 class="text-white ">Filmfun</h1>
+			<h1 class="text-white ">Filmfun</h1>
 			<p>Ett forum för dig som gillar att se på film och serie.</p>
-			<p>Ge lite tips, ris eller ros</p> *@
+			<p>Ge lite tips, ris eller ros</p>
+		</div>
+		</div>
+</div>
 			<br />
 			@if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin")) //Admin får meddelande att det finns flaggade inlägg
 			{
@@ -53,6 +56,8 @@
 					
 				}
 			}
+			@if (Model.IsHomePage)
+            {
 			<div class="d-flex justify-content-end">
 				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
 					Skriv inlägg
@@ -105,7 +110,7 @@
 				<div class="alert alert-danger">Du är inte inloggad!</div>
 			}
 
-
+			}
 
 
 		
@@ -297,6 +302,6 @@
 
 
 
-	</div>
+@* 	</div>
 </div>
-</div>
+</div> *@

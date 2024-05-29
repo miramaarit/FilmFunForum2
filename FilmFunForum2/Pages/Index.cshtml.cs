@@ -44,7 +44,7 @@ namespace FilmFunForum2.Pages
 		[BindProperty]
 		public Models.Comment Comment { get; set; }
 		public bool HasFlaggedComments { get; set; }
-
+		public bool IsHomePage { get; set; } = true;
 
 
 		public async Task OnGetAsync()
@@ -58,6 +58,7 @@ namespace FilmFunForum2.Pages
 		}
 		public async Task<IActionResult> OnGetShowPostAsync(int showid) //Visa en ForumPost med kommentarer
 		{
+			IsHomePage = false;
 			var currentUser = await _userManager.GetUserAsync(User);
 
 			if (showid != 0)

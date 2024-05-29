@@ -23,9 +23,9 @@
                             <a class="nav-link text-dark" asp-area="" asp-page="/Index">Forum</a>
                          
                         </li>
-                     @*    <li class="nav-item">
+                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
-                        </li> *@
+                        </li>
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
@@ -59,6 +59,7 @@
  
     </header>
     <div class="container">
+        <partial name="_CookieConsentPartial" />
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
