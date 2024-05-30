@@ -152,14 +152,16 @@ namespace FilmFunForum2.Areas.Identity.Pages.Account
                     {
                         await image.CopyToAsync(fileStream);
                     }
-                   
-                }
-                {
-                    // Sätt standardbilden om ingen bild laddas upp
-                    fileName = "defaultImage.png";
-                }
-                user.UserImage = fileName;
 
+                }
+               
+               
+                    {
+                        // Sätt standardbilden om ingen bild laddas upp
+                        fileName = "defaultImage.png";
+                    }
+                    user.UserImage = fileName;
+                
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
