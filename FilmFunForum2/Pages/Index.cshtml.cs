@@ -45,7 +45,7 @@ namespace FilmFunForum2.Pages
 		public Models.Comment Comment { get; set; }
 		public bool HasFlaggedComments { get; set; }
 		public bool IsHomePage { get; set; } = true;
-
+		
 
 		public async Task OnGetAsync()
 		{
@@ -216,56 +216,14 @@ namespace FilmFunForum2.Pages
 			}
 			return Page();
 		}
+	
 	}
 }
 
 
 
 
-//    Comment.Date = DateTime.Now;
-//    if (currentUser != null)
-//    {
-//        Comment.UserId = currentUser.Email;
-//        Comment.UserImage = currentUser?.UserImage ?? "defaultImage.png";
 
-//    }
-//    //Comment.Image = string.IsNullOrEmpty(fileName) ? null : fileName;
-//    _context.Comment.Add(Comment);
-//        await _context.SaveChangesAsync();
-//    //return RedirectToAction("ShowPost", new { postId = postId });
-//    return RedirectToPage(new { showid = Comment.ForumPostId });
-
-//}
-
-//     public async Task<IActionResult> OnPostReportAsync(int commentId, int postId, string reason)
-//     {
-//var currentUser = await _userManager.GetUserAsync(User);
-//var comment = await _context.Comment.FindAsync(commentId);
-//         var post = await _context.ForumPost.FindAsync(postId);
-//         if (comment == null || post == null)
-//         {
-//             return NotFound();
-//         }
-//if (string.IsNullOrWhiteSpace(reason))
-//{
-//	ModelState.AddModelError("Report.Reason", "Reason for report is required.");
-//	return Page();
-//}
-//var report = new Report
-//{
-//	UserId = currentUser.Email,
-//	ForumPostId = postId,
-//	CommentId = commentId,
-//	Reason = reason,
-//	Date = DateTime.Now
-//};
-
-
-//             _context.Report.Add(Report);
-//            await _context.SaveChangesAsync();
-
-//         return RedirectToPage("./Index");
-//}
 
 
 

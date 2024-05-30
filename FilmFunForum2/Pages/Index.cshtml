@@ -47,6 +47,7 @@
 		</div>
 		</div>
 </div>
+
 			<br />
 			@if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin")) //Admin får meddelande att det finns flaggade inlägg
 			{
@@ -173,8 +174,10 @@
 
 						foreach (var category in Model.Categories) //Se de olika kategorierna i container med inlägg
 						{
-							<div class="container p-5 my-4 post-container" id="@category.Name"> 
-								<h2>@category.Name</h2>
+							<div class="container p-5 my-4 post-container" id="@category.Name">
+								<div class="text-center festive-text">
+				<h2>@category.Name <img src="~/postImages/bio.jpg" class="img-fluid" width="150" height="100" /></h2>
+				</div>
 								<div class="row scrollable-container">
 									@if (Model.Posts != null && Model.Posts.Any())
 									{

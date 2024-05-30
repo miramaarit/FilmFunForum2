@@ -42,7 +42,7 @@ body {
   background-color:lightgrey;
 }
 .post-container {
-    background-color: black;
+    background-color: #343a40;
     color: white;
     padding: 20px;
     border-radius: 10px;
@@ -57,7 +57,7 @@ body {
     padding: 10px;
 }
     .scrollable-container .post {
-        background-color: white; /* Bakgrund för varje post */
+        background-color: whitesmoke; /* Bakgrund för varje post */
         color: #212529;
         border: 1px solid #ddd; /* Border runt varje post */
         border-radius: 8px;
