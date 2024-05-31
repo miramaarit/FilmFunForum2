@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -5,7 +6,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FilmFunForum2.Pages.RoleAdmin
 {
-    public class IndexModel : PageModel
+	[Authorize(Roles = "Admin")]
+	public class IndexModel : PageModel
     {
         public List<Areas.Identity.Data.FilmFunForum2User> Users { get; set; }
         public List<IdentityRole> Roles { get; set; }

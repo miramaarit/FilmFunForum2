@@ -7,10 +7,12 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using FilmFunForum2.Data;
 using FilmFunForum2.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FilmFunForum2.Pages.Admin.ReportAdmin
 {
-    public class IndexModel : PageModel
+	[Authorize(Roles = "Admin")]
+	public class IndexModel : PageModel
     {
         private readonly FilmFunForum2.Data.FilmFunForum2Context _context;
 

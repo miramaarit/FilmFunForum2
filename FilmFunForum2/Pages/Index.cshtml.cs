@@ -171,7 +171,7 @@ namespace FilmFunForum2.Pages
 			_context.Comment.Add(Comment);
 			await _context.SaveChangesAsync();
 			
-			return RedirectToPage(new { showid = Comment.ForumPostId, handler="ShowPost" }); //Varför? hamnar ändå på överikstsidan med inlägg??
+			return RedirectToPage(new { showid = Comment.ForumPostId, handler="ShowPost" }); 
 		}
 
 		public async Task<IActionResult> OnPostDeleteCommentAsync(int commentId, int postId)
@@ -187,6 +187,7 @@ namespace FilmFunForum2.Pages
 				await _context.SaveChangesAsync();
 			}
 			return RedirectToPage(new { showid = postId });
+
 		}
 		public async Task<IActionResult> OnPostDeletePostAsync(int postId)
 		{

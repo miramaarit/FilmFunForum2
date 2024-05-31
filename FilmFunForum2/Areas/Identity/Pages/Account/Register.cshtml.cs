@@ -154,12 +154,14 @@ namespace FilmFunForum2.Areas.Identity.Pages.Account
                     }
 
                 }
-               
-               
-                    {
+                else
+                {
+
+                    
                         // Sätt standardbilden om ingen bild laddas upp
                         fileName = "defaultImage.png";
-                    }
+                    
+                }
                     user.UserImage = fileName;
                 
 

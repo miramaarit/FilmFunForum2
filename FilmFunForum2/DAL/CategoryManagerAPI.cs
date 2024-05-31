@@ -4,7 +4,7 @@ namespace FilmFunForum2.DAL
 {
     public class CategoryManagerAPI
     {
-        private static Uri BaseAddress = new Uri("https://localhost:44302/");
+        private static Uri BaseAddress = new Uri("https://filmfunapi.azurewebsites.net/");
 
         public static async Task<List<Models.Category>> GetAllCategories()
         {

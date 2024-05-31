@@ -176,7 +176,7 @@
 						{
 							<div class="container p-5 my-4 post-container" id="@category.Name">
 								<div class="text-center festive-text">
-				<h2>@category.Name <img src="~/postImages/bio.jpg" class="img-fluid" width="150" height="100" /></h2>
+				<h2>@category.Name <img src="~/postImages/film.jpg" class="img-fluid" width="150" height="100" /></h2>
 				</div>
 								<div class="row scrollable-container">
 									@if (Model.Posts != null && Model.Posts.Any())
@@ -251,8 +251,7 @@
 							<input type="hidden" asp-for="Comment.ForumPostId" value="@(Model.Post?.Id ?? 0)" />
 							<input type="hidden" asp-for="Comment.UserId" value="@User.Identity.Name" />
 							<input type="hidden" asp-for="Comment.ForumPostTitle" value="@Model.Post?.Title" />
-							@*     <input type="hidden" asp-for="Comment.Flagged" value="@Model.Post?.Title" /> *@
-							@*  <input type="hidden" asp-for="Comment.Text" value="Comment.Text" /> *@
+							
 							<div class="mb-3">
 								<label asp-for="Comment.Text" class="form-label">Kommentar</label>
 								<textarea asp-for="Comment.Text" class="form-control" rows="3"></textarea>
@@ -279,6 +278,8 @@
 		{
 			@if (User.IsInRole("Admin"))
 			{
+		@if (Model.Post.Comments != null)
+		{
 				foreach (var comment in Model.Post.Comments.Where(c => c.Flagged))
 				{
 					<div>
@@ -291,6 +292,7 @@
 						
 					</div>
 				}
+		}
 				<br />
 				<form method="post" asp-page-handler="DeletePost" asp-route-postId="@Model.Post.Id">
 					<button type="submit" class="btn btn-danger">Radera hela inlägget</button>
@@ -305,6 +307,3 @@
 
 
 
-@* 	</div>
-</div>
-</div> *@
