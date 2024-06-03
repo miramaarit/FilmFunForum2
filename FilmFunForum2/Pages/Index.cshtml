@@ -60,7 +60,7 @@
 			@if (Model.IsHomePage)
             {
 			<div class="d-flex justify-content-end">
-				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+				<button type="button" class="button" data-bs-toggle="modal" data-bs-target="#myModal">
 					Skriv inlägg
 				</button>
 			</div>
@@ -260,7 +260,7 @@
 								<input type="file" name="UploadedImage" />
 								<div class="form-group form-check">
 									<label class="form-check-label">
-										<input class="form-check-input" asp-for="Comment.Flagged" /> Anmäl inlägg
+										<input class="form-check-input" asp-for="Comment.Flagged" /> Anmäl inlägg (OBS! kommentaren syns då endast hos admin)
 									</label>
 								</div>
 							</div>

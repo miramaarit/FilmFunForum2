@@ -64,3 +64,33 @@ body {
         padding: 16px;
         margin-bottom: 16px;
     }
+.button {
+    background: rgba(118,205,229,1);
+    background: -moz-linear-gradient(left, rgba(118,205,229,1) 0%, rgba(118,205,229,1) 42%, rgba(150,218,237,1) 78%, rgba(66,183,215,1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(118,205,229,1)), color-stop(42%, rgba(118,205,229,1)), color-stop(78%, rgba(150,218,237,1)), color-stop(100%, rgba(66,183,215,1)));
+    background: -webkit-linear-gradient(left, rgba(118,205,229,1) 0%, rgba(118,205,229,1) 42%, rgba(150,218,237,1) 78%, rgba(66,183,215,1) 100%);
+    background: -o-linear-gradient(left, rgba(118,205,229,1) 0%, rgba(118,205,229,1) 42%, rgba(150,218,237,1) 78%, rgba(66,183,215,1) 100%);
+    background: -ms-linear-gradient(left, rgba(118,205,229,1) 0%, rgba(118,205,229,1) 42%, rgba(150,218,237,1) 78%, rgba(66,183,215,1) 100%);
+    background: linear-gradient(to right, rgba(118,205,229,1) 0%, rgba(118,205,229,1) 42%, rgba(150,218,237,1) 78%, rgba(66,183,215,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#76cde5', endColorstr='#42b7d7', GradientType=1 );
+    padding: 15px 30px;
+    font-size: 16px;
+    border: 2px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.modal-dialog {
+    max-width: 80%; /* Ökar bredden på modalen */
+}
+
+.modal-content {
+    padding: 20px; /* Lägg till marginal runt innehållet */
+    font-size: 16px; /* Justerar textstorleken */
+}
+    
+   
+    .modal-content form textarea {
+        width: 100%; 
+        margin-bottom: 10px;  
+        padding: 10px;  
+    }
