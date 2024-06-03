@@ -276,28 +276,32 @@
 		}
 		@if (Model.Post != null)
 		{
-			@if (User.IsInRole("Admin"))
+			@if (User.IsInRole("Admin")) //Admin ska kunna radera kommentarer och inlägg
 			{
 		@if (Model.Post.Comments != null)
 		{
-				foreach (var comment in Model.Post.Comments.Where(c => c.Flagged))
-				{
-					<div>
-						<p>@comment.Text</p>
+		
+			foreach (var comment in Model.Post.Comments)
+			{
+				<div>
+					<p>@comment.Text</p>
 
+					<form method="post" asp-page-handler="DeleteComment" asp-route-commentId="@comment.Id" asp-route-postId="@Model.Post.Id">
+						<button type="submit" class="btn btn-danger">Radera kommentar</button>
+					</form>
 
-						<form method="post" asp-page-handler="DeleteComment" asp-route-commentId="@comment.Id" asp-route-postId="@Model.Post.Id">
-							<button type="submit" class="btn btn-danger">Radera kommentar</button>
-						</form>
-						
-					</div>
-				}
-		}
-				<br />
-				<form method="post" asp-page-handler="DeletePost" asp-route-postId="@Model.Post.Id">
-					<button type="submit" class="btn btn-danger">Radera hela inlägget</button>
-				</form>
+					@if (comment.Flagged)
+					{
+						<p><strong>Den här kommentaren har flaggat</strong></p>
+					}
+				</div>
 			}
+		}
+		<br />
+		<form method="post" asp-page-handler="DeletePost" asp-route-postId="@Model.Post.Id">
+			<button type="submit" class="btn btn-danger">Radera hela inlägget</button>
+		</form>
+	}
 
 		}
 

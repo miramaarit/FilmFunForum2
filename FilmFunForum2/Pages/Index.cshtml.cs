@@ -54,7 +54,7 @@ namespace FilmFunForum2.Pages
 			Comments = await _context.Comment.ToListAsync();
 			Categories = await DAL.CategoryManagerAPI.GetAllCategories();
 			Posts = await _context.ForumPost.ToListAsync();
-			//Reports = await _context.Report.ToListAsync();
+			
 		}
 		public async Task<IActionResult> OnGetShowPostAsync(int showid) //Visa en ForumPost med kommentarer
 		{
@@ -186,8 +186,8 @@ namespace FilmFunForum2.Pages
                 _context.Comment.Remove(comment);
 				await _context.SaveChangesAsync();
 			}
-			return RedirectToPage(new { showid = postId });
-
+			
+			return RedirectToPage(new { showid= postId, handler = "ShowPost" });
 		}
 		public async Task<IActionResult> OnPostDeletePostAsync(int postId)
 		{
